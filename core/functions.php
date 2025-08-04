@@ -1,5 +1,5 @@
 <?php
-// FILE: /core/functions.php (Final Corrected Version - English)
+// FILE: /core/functions.php (Final MVP Version - English)
 
 /**
  * Central function to send requests to the Supabase REST API using cURL.
@@ -65,14 +65,9 @@ function registerUserAndAssignColor($email, $username, $password) {
     }
 
     // --- STEP 1: FIND AN AVAILABLE COLOR (PHP LOGIC) ---
-    // We send a GET request to the 'colors' table directly.
-    // - owner_id=is.null : This filters for colors that have no owner.
-    // - select=id,hex_code,name : We only ask for the data we need.
-    // - limit=1 : We only need one color.
     $colorParams = '?owner_id=is.null&select=id,hex_code,name&limit=1';
     $colorResponse = supabase_request('GET', 'colors', [], $colorParams);
     
-    // Check if the request was successful and if a color was actually found.
     if ($colorResponse['code'] != 200 || empty($colorResponse['body'])) {
         return ['success' => false, 'message' => 'CRITICAL: Could not find an available color. Please run the population script.', 'code' => 503];
     }
