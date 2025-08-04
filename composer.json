@@ -1,0 +1,6 @@
+{
+    "require": {
+        "supabase/supabase-php": "0.0.2",
+        "paragonie/sodium_compat": "^1.17"
+    }
+}
